@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.image-track {
+  display: flex;
+  justify-content: center;
+  gap: 4vmin;
+  transform: translate(100%, 0%);
+  user-select: none;
+}
+
+.image {
+  width: 40vmin;
+  height: 56vmin;
+  object-fit: cover;
+  object-position: 100% center;
+}
