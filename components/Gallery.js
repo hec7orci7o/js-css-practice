@@ -26,7 +26,6 @@ export default function Gallery() {
     const nextPercentageUnconstrained = prevPercentage + percentage;
     const nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -125);
     trackRef.current.percentage = nextPercentage;
-    console.log('move', percentage, nextPercentage);
 
     if (trackRef.current) {
       trackRef.current.animate({
@@ -45,6 +44,8 @@ export default function Gallery() {
   }, []);
 
   useEffect(() => {
+    if (innerWidth < 768) return;
+
     window.addEventListener('touchstart', (e) => handleOnDown(e.changedTouches[0]));
     window.addEventListener('touchmove', (e) => handleOnMove(e.changedTouches[0]));
     window.addEventListener('touchend', (e) => handleOnUp(e.changedTouches[0]));
@@ -64,7 +65,7 @@ export default function Gallery() {
   return (
     <div
       ref={trackRef}
-      className="flex items-center gap-x-2 absolute top-1/2 translate-x-1/2 -translate-y-1/2 select-none"
+      className="grid grid-cols-1 sm:grid-cols-3 md:flex md:items-center gap-2 md:absolute md:top-1/2 md:translate-x-1/2 md:-translate-y-1/2 select-none"
     >
       {images.map((image, index) => (
         <a
@@ -72,8 +73,14 @@ export default function Gallery() {
           href={image.href}
           target="_blank"
           referrerPolicy='no-referrer'
-          className="link" rel="noreferrer"
+          className="link relative md:mx-0 mx-auto" rel="noreferrer"
         >
+          <span
+            className='text-white absolute top-0 left-0 text-sm md:text-2xl font-bold px-4 py-2'
+            draggable={false}
+          >
+            {image.alt}
+          </span>
           <img
             src={image.src}
             alt={image.alt}
