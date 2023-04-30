@@ -55,10 +55,10 @@ export default function Gallery() {
     return () => {
       window.removeEventListener('mousedown', (e) => handleOnDown(e.changedTouches[0]));
       window.removeEventListener('mousemove', (e) => handleOnMove(e.changedTouches[0]));
-      window.addEventListener('touchend', (e) => handleOnUp(e.changedTouches[0]));
-      window.addEventListener('mousedown', handleOnDown);
-      window.addEventListener('mousemove', handleOnMove);
-      window.addEventListener('mouseup', handleOnUp);
+      window.removeEventListener('touchend', (e) => handleOnUp(e.changedTouches[0]));
+      window.removeEventListener('mousedown', handleOnDown);
+      window.removeEventListener('mousemove', handleOnMove);
+      window.removeEventListener('mouseup', handleOnUp);
     };
   }, [handleOnDown, handleOnUp, handleOnMove]);
 
